@@ -25,10 +25,40 @@ export const useProducts = () => {
     setProducts(prev => prev.filter(product => product.id !== id));
   }, []);
 
+  const decreaseStock = useCallback((id: string, quantity: number = 1) => {
+    setProducts(prev => 
+      prev.map(product => {
+        if (product.id === id && product.stock !== undefined) {
+          return {
+            ...product,
+            stock: Math.max(0, product.stock - quantity)
+          };
+        }
+        return product;
+      })
+    );
+  }, []);
+
+  const increaseStock = useCallback((id: string, quantity: number = 1) => {
+    setProducts(prev => 
+      prev.map(product => {
+        if (product.id === id && product.stock !== undefined) {
+          return {
+            ...product,
+            stock: product.stock + quantity
+          };
+        }
+        return product;
+      })
+    );
+  }, []);
+
   return {
     products,
     addProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    decreaseStock,
+    increaseStock
   };
 };

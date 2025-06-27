@@ -1,5 +1,5 @@
 import React from 'react';
-import { Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
+import { Minus, Plus, Trash2, ShoppingBag, Package } from 'lucide-react';
 import { CartItem } from '../types';
 
 interface CartProps {
@@ -19,29 +19,35 @@ export const Cart: React.FC<CartProps> = ({
 
   if (items.length === 0) {
     return (
-      <div className="w-80 bg-gray-800 border-l border-gray-700 p-6">
+      <div className="w-full lg:w-80 bg-gray-800 border-l border-gray-700 p-6">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-lg font-semibold text-white">Количка</h2>
         </div>
-        <div className="flex flex-col items-center justify-center h-64 text-gray-500">
-          <ShoppingBag className="w-16 h-16 mb-4" />
-          <p className="text-center">Количката е празна</p>
-          <p className="text-sm text-center mt-2">Добавете продукти за започване</p>
+        <div className="flex flex-col items-center justify-center h-64 text-gray-400">
+          <div className="relative mb-6">
+            <ShoppingBag className="w-20 h-20 text-gray-600" />
+            <Package className="w-8 h-8 text-gray-500 absolute -bottom-2 -right-2" />
+          </div>
+          <h3 className="text-lg font-medium text-gray-300 mb-2">Количката е празна</h3>
+          <p className="text-center text-sm leading-relaxed">
+            Добавете продукти от панела вляво<br />
+            за да стартирате поръчка
+          </p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="w-80 bg-gray-800 border-l border-gray-700 p-6 flex flex-col">
+    <div className="w-full lg:w-80 bg-gray-800 border-l border-gray-700 p-6 flex flex-col">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-lg font-semibold text-white">Количка</h2>
         <button
           onClick={onClearCart}
-          className="text-red-400 hover:text-red-300 p-2 rounded-lg hover:bg-red-600 hover:bg-opacity-20 transition-all duration-200 active:scale-95"
+          className="text-red-400 hover:text-red-300 p-3 rounded-lg hover:bg-red-600 hover:bg-opacity-20 transition-all duration-200 active:scale-95 min-w-[48px] min-h-[48px] flex items-center justify-center"
           title="Изчисти количката"
         >
-          <Trash2 className="w-5 h-5" />
+          <Trash2 className="w-6 h-6" />
         </button>
       </div>
 
@@ -54,9 +60,9 @@ export const Cart: React.FC<CartProps> = ({
               </h3>
               <button
                 onClick={() => onRemoveItem(item.id)}
-                className="text-red-400 hover:text-red-300 p-1 rounded-lg hover:bg-red-600 hover:bg-opacity-20 transition-all duration-200 ml-2 active:scale-95"
+                className="text-red-400 hover:text-red-300 p-2 rounded-lg hover:bg-red-600 hover:bg-opacity-20 transition-all duration-200 ml-2 active:scale-95 min-w-[40px] min-h-[40px] flex items-center justify-center"
               >
-                <Trash2 className="w-4 h-4" />
+                <Trash2 className="w-5 h-5" />
               </button>
             </div>
             
@@ -65,18 +71,18 @@ export const Cart: React.FC<CartProps> = ({
               <div className="flex items-center space-x-3">
                 <button
                   onClick={() => onUpdateQuantity(item.id, Math.max(0, item.quantity - 1))}
-                  className="bg-gray-600 hover:bg-gray-500 p-2 rounded-lg transition-all duration-200 active:scale-95"
+                  className="bg-gray-600 hover:bg-gray-500 p-3 rounded-lg transition-all duration-200 active:scale-95 min-w-[48px] min-h-[48px] flex items-center justify-center"
                 >
-                  <Minus className="w-4 h-4 text-white" />
+                  <Minus className="w-5 h-5 text-white" />
                 </button>
-                <span className="text-white font-bold text-lg w-8 text-center">
+                <span className="text-white font-bold text-lg w-12 text-center">
                   {item.quantity}
                 </span>
                 <button
                   onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
-                  className="bg-gray-600 hover:bg-gray-500 p-2 rounded-lg transition-all duration-200 active:scale-95"
+                  className="bg-gray-600 hover:bg-gray-500 p-3 rounded-lg transition-all duration-200 active:scale-95 min-w-[48px] min-h-[48px] flex items-center justify-center"
                 >
-                  <Plus className="w-4 h-4 text-white" />
+                  <Plus className="w-5 h-5 text-white" />
                 </button>
               </div>
               

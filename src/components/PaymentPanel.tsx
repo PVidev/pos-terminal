@@ -79,7 +79,7 @@ export const PaymentPanel: React.FC<PaymentPanelProps> = ({
   if (showSuccess && lastTransaction) {
     return (
       <>
-        <div className="w-80 bg-gray-800 border-l border-gray-700 p-6">
+        <div className="w-full lg:w-80 bg-gray-800 border-l border-gray-700 p-6">
           <div className="text-center mb-6">
             <div className="bg-emerald-600 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
               <CheckCircle className="w-10 h-10 text-white" />
@@ -119,15 +119,15 @@ export const PaymentPanel: React.FC<PaymentPanelProps> = ({
           <div className="space-y-3">
             <button
               onClick={handleShowReceipt}
-              className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-4 px-4 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-2 active:scale-95"
+              className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-5 px-4 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-3 active:scale-95 min-h-[64px]"
             >
-              <Receipt className="w-5 h-5" />
-              <span>Касов бон</span>
+              <Receipt className="w-6 h-6" />
+              <span className="text-lg">Касов бон</span>
             </button>
             
             <button
               onClick={handleNewOrder}
-              className="w-full bg-gray-700 hover:bg-gray-600 text-white py-4 px-4 rounded-lg font-medium transition-all duration-200 active:scale-95"
+              className="w-full bg-gray-700 hover:bg-gray-600 text-white py-5 px-4 rounded-lg font-medium transition-all duration-200 active:scale-95 min-h-[64px] text-lg"
             >
               Нова поръчка
             </button>
@@ -145,7 +145,7 @@ export const PaymentPanel: React.FC<PaymentPanelProps> = ({
 
   if (items.length === 0) {
     return (
-      <div className="w-80 bg-gray-800 border-l border-gray-700 p-6">
+      <div className="w-full lg:w-80 bg-gray-800 border-l border-gray-700 p-6">
         <h2 className="text-lg font-semibold text-white mb-6">Плащане</h2>
         <div className="flex flex-col items-center justify-center h-64 text-gray-500">
           <CreditCard className="w-16 h-16 mb-4" />
@@ -156,7 +156,7 @@ export const PaymentPanel: React.FC<PaymentPanelProps> = ({
   }
 
   return (
-    <div className="w-80 bg-gray-800 border-l border-gray-700 p-6">
+    <div className="w-full lg:w-80 bg-gray-800 border-l border-gray-700 p-6">
       <h2 className="text-lg font-semibold text-white mb-6">Плащане</h2>
       
       <div className="mb-6">
@@ -182,16 +182,16 @@ export const PaymentPanel: React.FC<PaymentPanelProps> = ({
                   setSelectedPayment(method.id);
                   setCashReceived('');
                 }}
-                className={`w-full p-4 rounded-lg border-2 transition-all duration-200 flex items-center space-x-3 active:scale-95 ${
+                className={`w-full p-5 rounded-lg border-2 transition-all duration-200 flex items-center space-x-3 active:scale-95 min-h-[64px] ${
                   selectedPayment === method.id
                     ? `border-${method.color}-600 bg-${method.color}-600 bg-opacity-20 shadow-lg`
                     : 'border-gray-600 hover:border-gray-500'
                 }`}
               >
-                <IconComponent className={`w-6 h-6 ${
+                <IconComponent className={`w-7 h-7 ${
                   selectedPayment === method.id ? `text-${method.color}-400` : 'text-gray-400'
                 }`} />
-                <span className={`font-medium text-lg ${
+                <span className={`font-medium text-xl ${
                   selectedPayment === method.id ? 'text-white' : 'text-gray-300'
                 }`}>
                   {method.name}
@@ -212,10 +212,10 @@ export const PaymentPanel: React.FC<PaymentPanelProps> = ({
               value={cashReceived}
               onChange={(e) => setCashReceived(e.target.value)}
               placeholder="0.00"
-              className="w-full p-4 bg-gray-700 border border-gray-600 rounded-lg text-white text-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent"
+              className="w-full p-5 bg-gray-700 border border-gray-600 rounded-lg text-white text-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent"
             />
             {change > 0 && (
-              <div className="mt-3 p-3 bg-emerald-600 bg-opacity-20 rounded-lg text-emerald-400 text-lg font-medium">
+              <div className="mt-3 p-4 bg-emerald-600 bg-opacity-20 rounded-lg text-emerald-400 text-xl font-medium">
                 Ресто: {change.toFixed(2)} лв
               </div>
             )}
@@ -226,15 +226,15 @@ export const PaymentPanel: React.FC<PaymentPanelProps> = ({
       <button
         onClick={handlePayment}
         disabled={!canProcessPayment() || isProcessing}
-        className={`w-full py-5 px-4 rounded-lg font-bold text-xl transition-all duration-200 ${
+        className={`w-full py-6 px-4 rounded-lg font-bold text-2xl transition-all duration-200 min-h-[72px] flex items-center justify-center ${
           canProcessPayment() && !isProcessing
             ? 'bg-emerald-600 hover:bg-emerald-700 text-white hover:shadow-lg transform hover:scale-105 active:scale-95'
             : 'bg-gray-700 text-gray-500 cursor-not-allowed'
         }`}
       >
         {isProcessing ? (
-          <div className="flex items-center justify-center space-x-2">
-            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
+          <div className="flex items-center justify-center space-x-3">
+            <div className="animate-spin rounded-full h-7 w-7 border-b-2 border-white"></div>
             <span>Обработва се...</span>
           </div>
         ) : (

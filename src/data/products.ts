@@ -87,5 +87,33 @@ export const products: Product[] = [
     price: 14.90,
     category: 'Храна',
     stock: 22
+  },
+  {
+    id: '13',
+    name: 'Кафе Американо',
+    price: 2.80,
+    category: 'Напитки',
+    stock: 3
+  },
+  {
+    id: '14',
+    name: 'Тостов',
+    price: 5.50,
+    category: 'Храна',
+    stock: 0
+  },
+  {
+    id: '15',
+    name: 'Шоколадов Кейк',
+    price: 8.90,
+    category: 'Десерти',
+    stock: 7
+  },
+  {
+    id: '16',
+    name: 'Чай Зелен',
+    price: 2.20,
+    category: 'Напитки',
+    stock: 2
   }
 ];

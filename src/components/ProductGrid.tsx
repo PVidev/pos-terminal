@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Plus, Package, Percent } from 'lucide-react';
+import { Search, Plus, Package, Percent, AlertTriangle } from 'lucide-react';
 import { Product } from '../types';
 
 interface ProductGridProps {
@@ -24,6 +24,14 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart 
     return price * (1 - discount / 100);
   };
 
+  const getStockStatus = (stock?: number) => {
+    if (stock === undefined) return { status: 'unknown', color: 'text-gray-500', bgColor: 'bg-gray-700' };
+    if (stock <= 0) return { status: 'out', color: 'text-red-400', bgColor: 'bg-red-600' };
+    if (stock <= 5) return { status: 'low', color: 'text-orange-400', bgColor: 'bg-orange-600' };
+    if (stock <= 10) return { status: 'medium', color: 'text-yellow-400', bgColor: 'bg-yellow-600' };
+    return { status: 'good', color: 'text-green-400', bgColor: 'bg-green-600' };
+  };
+
   return (
     <div className="flex-1 p-6">
       <div className="mb-6">
@@ -35,7 +43,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart 
               placeholder="Търсене на продукти..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent text-lg"
+              className="w-full pl-10 pr-4 py-4 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent text-lg"
             />
           </div>
         </div>
@@ -45,7 +53,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart 
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-6 py-3 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 ${
+              className={`px-6 py-4 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 min-h-[48px] flex items-center ${
                 selectedCategory === category
                   ? 'bg-emerald-600 text-white shadow-lg transform scale-105'
                   : 'bg-gray-800 text-gray-300 hover:bg-gray-700 active:scale-95'
@@ -57,18 +65,23 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart 
         </div>
       </div>
 
-      {/* Touch-optimized product grid - 3 columns */}
-      <div className="grid grid-cols-3 gap-4">
+      {/* Touch-optimized product grid - responsive for tablets */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {filteredProducts.map(product => {
           const discountedPrice = getDiscountedPrice(product.price, product.discount);
           const hasDiscount = product.discount && product.discount > 0;
           const isOutOfStock = product.stock !== undefined && product.stock <= 0;
+          const stockStatus = getStockStatus(product.stock);
 
           return (
             <div
               key={product.id}
               className={`bg-gray-800 rounded-xl p-4 transition-all duration-200 cursor-pointer group border-2 border-gray-700 hover:border-emerald-600 hover:shadow-xl active:scale-95 ${
                 isOutOfStock ? 'opacity-50' : ''
+              } ${
+                stockStatus.status === 'low' ? 'border-orange-500 bg-orange-900/20' : ''
+              } ${
+                stockStatus.status === 'out' ? 'border-red-500 bg-red-900/20' : ''
               }`}
               onClick={() => !isOutOfStock && onAddToCart(product)}
             >
@@ -91,6 +104,14 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart 
                     <div className="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 rounded-full text-xs font-bold flex items-center">
                       <Percent className="w-3 h-3 mr-1" />
                       {product.discount}
+                    </div>
+                  )}
+
+                  {/* Stock warning indicator - само за изчерпани продукти */}
+                  {isOutOfStock && (
+                    <div className="absolute top-2 left-2 bg-red-600 text-white px-2 py-1 rounded-full text-xs font-bold flex items-center">
+                      <AlertTriangle className="w-3 h-3 mr-1" />
+                      Изчерпан
                     </div>
                   )}
                   
@@ -126,7 +147,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart 
                       if (!isOutOfStock) onAddToCart(product);
                     }}
                     disabled={isOutOfStock}
-                    className={`p-3 rounded-xl transition-all duration-200 group-hover:scale-110 transform active:scale-95 ${
+                    className={`p-4 rounded-xl transition-all duration-200 group-hover:scale-110 transform active:scale-95 min-w-[56px] min-h-[56px] flex items-center justify-center ${
                       isOutOfStock 
                         ? 'bg-gray-600 cursor-not-allowed' 
                         : 'bg-emerald-600 hover:bg-emerald-700 shadow-lg hover:shadow-emerald-600/25'
@@ -138,11 +159,9 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart 
                 
                 {product.stock !== undefined && (
                   <div className="mt-3 text-sm text-center">
-                    {isOutOfStock ? (
-                      <span className="text-red-400 font-medium">Изчерпан</span>
-                    ) : (
-                      <span className="text-gray-500">Налични: {product.stock}</span>
-                    )}
+                    <span className={`font-medium ${stockStatus.color}`}>
+                      {isOutOfStock ? 'Изчерпан' : `Налични: ${product.stock}`}
+                    </span>
                   </div>
                 )}
               </div>
