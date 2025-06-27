@@ -1,21 +1,260 @@
-MIT License
+"POS-Terminal" е търговска марка на [Peyo Videv].
+Всички права запазени. Всички нарушители ще бъдат преследвани по закон.
 
-Copyright (c) 2025 Peyo Videv
+================================================================================
+================================================================================
+================================================================================
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+POS-TERMINAL - COPYRIGHT AND LICENSE
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Copyright (c) 2025 [Peyo Videv]
+All rights reserved.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+================================================================================
+
+STRICTLY PROHIBITED USE WITHOUT WRITTEN PERMISSION:
+
+1. COPYING AND DISTRIBUTION
+   - Any copying, distribution, or transmission of the code is prohibited
+   - Publication in public repositories is prohibited
+   - Sharing with third parties is prohibited
+
+2. MODIFICATION AND DEVELOPMENT
+   - Any modification of the code is prohibited
+   - Creation of derivative works is prohibited
+   - Use as a basis for new projects is prohibited
+   - Use of code parts in other projects is prohibited
+
+3. USE AND TESTING
+   - Use for testing purposes is prohibited
+   - Use for educational purposes is prohibited
+   - Use for demonstrations is prohibited
+   - Use for personal projects is prohibited
+
+4. COMMERCIAL USE
+   - Any commercial use is prohibited
+   - Sale or licensing to third parties is prohibited
+   - Use in business environment without license is prohibited
+
+5. REVERSE ENGINEERING
+   - Reverse engineering of the code is prohibited
+   - Decompilation or disassembly is prohibited
+   - Analysis of code structure is prohibited
+
+6. DOWNLOADING AND INSTALLATION
+   - Downloading without permission is prohibited
+   - Installation of systems without license is prohibited
+   - Deployment in cloud environments is prohibited
+
+================================================================================
+
+USAGE RULES:
+
+1. LICENSING
+   - Usage requires written permission from the author
+   - License is granted only for specific purposes and terms
+   - License cannot be transferred without permission
+
+2. ATTRIBUTION
+   - Author attribution is mandatory for permitted use
+   - All copyright notices must be preserved
+   - Source of the code must be indicated
+
+3. SECURITY
+   - Code cannot be used for malicious purposes
+   - Use for law violation is prohibited
+   - Use for violation of third-party rights is prohibited
+
+================================================================================
+
+PENALTIES AND LIABILITY:
+
+1. CIVIL LIABILITY
+   - Violators are responsible for all damages
+   - Including lost profits and reputational damages
+   - Including attorney fees and court costs
+
+2. CRIMINAL LIABILITY
+   - Violations may lead to criminal liability
+   - According to Bulgarian copyright legislation
+   - Including fines and imprisonment
+
+3. LICENSE TERMINATION
+   - License is terminated immediately upon violation
+   - Mandatory cessation of use
+   - Mandatory deletion of all copies
+
+================================================================================
+
+LEGAL BASIS:
+
+This license is based on:
+- Copyright and Related Rights Act (CRRA)
+- Berne Convention for the Protection of Literary and Artistic Works
+- Universal Copyright Convention
+- European Union Directives on Copyright
+
+================================================================================
+
+LICENSING CONTACTS:
+
+For license inquiries or usage permission:
+- Email: [pvidev@pvidev-design.com]
+- Email: [peyo.videv@gmail.com]
+- Phone: [+359 898 624 880]
+
+================================================================================
+
+DECLARATION:
+
+By downloading, installing, or using this code, you:
+1. Confirm that you have read and understand all terms
+2. Agree to comply with all restrictions
+3. Accept full responsibility for violations
+4. Waive any claims against the author
+
+================================================================================
+
+LAST UPDATE: [DATE]
+VERSION: 1.0
+STATUS: ACTIVE
+
+================================================================================
+
+WARNING: This license is a legally binding document.
+In case of violation, all necessary legal actions will be taken
+to protect copyright rights.
+
+================================================================================
+
+"POS-Terminal" is a trademark of [Peyo Videv].
+All rights reserved. All violators will be prosecuted by law. 
+
+================================================================================
+================================================================================
+================================================================================
+
+POS-Terminal - АВТОРСКИ ПРАВА И ЛИЦЕНЗ
+
+Copyright (c) 2025 [Peyo Videv]
+Всички права запазени.
+
+================================================================================
+
+СТРОГО ЗАБРАНЕНО ИЗПОЛЗВАНЕ БЕЗ ПИСМЕНО РАЗРЕШЕНИЕ:
+
+1. КОПИРАНЕ И РАЗПРОСТРАНЯВАНЕ
+   - Забранява се всякакво копиране, разпространяване или предаване на кода
+   - Забранява се публикуване в публични репозитории
+   - Забранява се споделяне с трети страни
+
+2. МОДИФИКАЦИЯ И РАЗРАБОТКА
+   - Забранява се всякаква модификация на кода
+   - Забранява се създаване на производни произведения
+   - Забранява се използване като основа за нови проекти
+   - Забранява се използване на части от кода в други проекти
+
+3. ИЗПОЛЗВАНЕ И ТЕСТВАНЕ
+   - Забранява се използване за тестови цели
+   - Забранява се използване за образователни цели
+   - Забранява се използване за демонстрации
+   - Забранява се използване за лични проекти
+
+4. КОМЕРЦИАЛНО ИЗПОЛЗВАНЕ
+   - Забранява се всякакво комерсиално използване
+   - Забранява се продажба или лицензиране на трети страни
+   - Забранява се използване в бизнес среда без лиценз
+
+5. ОБРАТНА ИНЖЕНЕРИЯ
+   - Забранява се обратна инженерия на кода
+   - Забранява се декомпилиране или дизасемблиране
+   - Забранява се анализ на структурата на кода
+
+6. СВАЛЯНЕ И ИНСТАЛИРАНЕ
+   - Забранява се сваляне без разрешение
+   - Забранява се инсталиране на системи без лиценз
+   - Забранява се разполагане в облачни среди
+
+================================================================================
+
+ПРАВИЛА ЗА ИЗПОЛЗВАНЕ:
+
+1. ЛИЦЕНЗИРАНЕ
+   - Използването изисква писмено разрешение от автора
+   - Лицензът се дава само за конкретни цели и срокове
+   - Лицензът не може да се прехвърля без разрешение
+
+2. АТРИБУЦИЯ
+   - При разрешено използване задължително се посочва авторството
+   - Задължително се запазват всички copyright бележки
+   - Задължително се посочва източникът на кода
+
+3. БЕЗОПАСНОСТ
+   - Кодът не може да се използва за вредоносни цели
+   - Забранява се използване за нарушаване на закони
+   - Забранява се използване за нарушаване на права на трети страни
+
+================================================================================
+
+НАКАЗАНИЯ И ОТГОВОРНОСТ:
+
+1. ГРАЖДАНСКА ОТГОВОРНОСТ
+   - Нарушителите са отговорни за всички щети
+   - Включително загубени печалби и репутационни щети
+   - Включително разходи за адвокати и съдебни процеси
+
+2. УГОЛОВНА ОТГОВОРНОСТ
+   - Нарушенията могат да доведат до уголовна отговорност
+   - Според българското законодателство за авторски права
+   - Включително глоби и лишаване от свобода
+
+3. ПРЕКРАТЯВАНЕ НА ЛИЦЕНЗА
+   - При нарушение лицензът се прекратява незабавно
+   - Задължително преустановяване на използването
+   - Задължително изтриване на всички копия
+
+================================================================================
+
+ЗАКОНОДАТЕЛНА ОСНОВА:
+
+Този лиценз се основава на:
+- Закон за авторското право и сродните му права (ЗАПСП)
+- Бернската конвенция за защита на литературни и художествени произведения
+- Световната конвенция за авторско право
+- Директивите на Европейския съюз за авторски права
+
+================================================================================
+
+КОНТАКТИ ЗА ЛИЦЕНЗИРАНЕ:
+
+За запитване за лиценз или разрешение за използване:
+- Email: [pvidev@pvidev-design.com]
+- Email: [peyo.videv@gmail.com]
+- Телефон: [+359 898 624 880]
+
+================================================================================
+
+ДЕКЛАРАЦИЯ:
+
+Сваляйки, инсталирайки или използвайки този код, вие:
+1. Потвърждавате, че сте прочели и разбирате всички условия
+2. Съгласявате се да спазвате всички ограничения
+3. Приемате пълната отговорност за нарушенията
+4. Отказвате се от всякакви претенции към автора
+
+================================================================================
+
+ПОСЛЕДНА АКТУАЛИЗАЦИЯ: [ДАТА]
+ВЕРСИЯ: 1.0
+СТАТУС: АКТИВЕН
+
+================================================================================
+
+ВНИМАНИЕ: Този лиценз е юридически обвързващ документ. 
+При нарушение ще бъдат предприети всички необходими правни действия 
+за защита на авторските права.
+
+================================================================================
+
+"POS-Terminal" е търговска марка на [Peyo Videv].
+Всички права запазени. Всички нарушители ще бъдат преследвани по закон. 
