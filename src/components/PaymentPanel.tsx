@@ -8,13 +8,15 @@ interface PaymentPanelProps {
   total: number;
   onPaymentComplete: (transaction: Transaction) => void;
   onClearCart: () => void;
+  operatorName?: string;
 }
 
 export const PaymentPanel: React.FC<PaymentPanelProps> = ({ 
   items, 
   total, 
   onPaymentComplete,
-  onClearCart 
+  onClearCart,
+  operatorName
 }) => {
   const [selectedPayment, setSelectedPayment] = useState<PaymentMethod>('cash');
   const [cashReceived, setCashReceived] = useState('');
@@ -54,7 +56,8 @@ export const PaymentPanel: React.FC<PaymentPanelProps> = ({
       total,
       paymentMethod: selectedPayment,
       timestamp: new Date(),
-      cashier: 'admin' // Default cashier
+      cashier: 'admin', // Default cashier
+      operatorName: operatorName || 'Оператор'
     };
 
     setLastTransaction(transaction);
@@ -135,7 +138,7 @@ export const PaymentPanel: React.FC<PaymentPanelProps> = ({
         </div>
 
         <ReceiptModal
-          transaction={lastTransaction}
+          transaction={{ ...lastTransaction, operatorName: operatorName || lastTransaction.operatorName || 'Оператор' }}
           isOpen={showReceiptModal}
           onClose={() => setShowReceiptModal(false)}
         />

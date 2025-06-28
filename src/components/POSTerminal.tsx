@@ -74,6 +74,7 @@ export const POSTerminal: React.FC<POSTerminalProps> = ({
           total={cartTotal}
           onPaymentComplete={onPaymentComplete}
           onClearCart={onClearCart}
+          operatorName={operatorName}
         />
       </div>
     </div>
