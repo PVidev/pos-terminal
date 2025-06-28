@@ -136,6 +136,7 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({
           </div>
 
           <div className="footer text-center mt-6 text-gray-500 text-xs">
+            <p>Вас ви обслужи: <span className="font-semibold text-gray-700">{transaction.operatorName || 'Оператор'}</span></p>
             <p>Благодарим за покупката!</p>
             <p>Запазете бележката за гаранция</p>
             <p className="mt-2">www.pos-system.bg</p>

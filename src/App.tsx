@@ -8,7 +8,6 @@ import { OrderManagement } from './components/OrderManagement';
 import { RevisionHistory } from './components/RevisionHistory';
 import { RevisionAnalytics } from './components/RevisionAnalytics';
 import { AutomaticActions } from './components/AutomaticActions';
-import Kitchen from './components/Kitchen';
 import { useCart } from './hooks/useCart';
 import { useTime } from './hooks/useTime';
 import { useDashboard } from './hooks/useDashboard';
@@ -16,13 +15,22 @@ import { useProducts } from './hooks/useProducts';
 import { useCategories } from './hooks/useCategories';
 import { useInventoryOrders } from './hooks/useInventoryOrders';
 import { useInventoryRevisions } from './hooks/useInventoryRevisions';
-import { useRecipes } from './hooks/useRecipes';
-import { useKitchenOrders } from './hooks/useKitchenOrders';
 import { Transaction, InventoryOrder, InventoryRevision, RevisionDifference } from './types';
+import { RolesModal, UserProfile } from './components/RolesModal';
+import { LoginWithPin } from './components/LoginWithPin';
 
 function App() {
-  const [activeView, setActiveView] = useState<'pos' | 'dashboard' | 'settings' | 'inventory' | 'orders' | 'revision-history' | 'analytics' | 'automatic-actions' | 'kitchen'>('pos');
+  const [activeView, setActiveView] = useState<'pos' | 'dashboard' | 'settings' | 'inventory' | 'orders' | 'revision-history' | 'analytics' | 'automatic-actions'>('pos');
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [rolesModalOpen, setRolesModalOpen] = useState(false);
+  const [profiles, setProfiles] = useState<UserProfile[]>([
+    { id: '1', role: 'Касиер', name: 'Александра Иванова', phone: '0888 888 888', pin: '1234' },
+    { id: '2', role: 'Касиер', name: 'Иван Иванов', phone: '0898 686 868', pin: '2121' },
+    { id: '3', role: 'Мениджър обект', name: 'Нарцис Иванова', phone: '0878 655 878', pin: '0000' },
+    { id: '4', role: 'Админ', name: 'ТЕСТ 1', phone: '0888 888 777', pin: '0202' },
+    { id: '5', role: 'Куриер', name: 'Петко Петков', phone: '0777 878 777', pin: '4545' },
+  ]);
+  const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
 
   const {
     items,
@@ -62,36 +70,6 @@ function App() {
     deleteOrder,
     getOrdersByStatus
   } = useInventoryOrders();
-
-  // Кухненски hooks
-  const {
-    recipes,
-    ingredients,
-    addRecipe,
-    updateRecipe,
-    deleteRecipe,
-    addIngredient,
-    updateIngredient,
-    deleteIngredient,
-    decreaseIngredientStock,
-    getRecipeById,
-    getIngredientById,
-    getRecipesByCategory,
-    getActiveRecipes
-  } = useRecipes();
-
-  const {
-    orders: kitchenOrders,
-    completedOrders: kitchenCompletedOrders,
-    addOrder: addKitchenOrder,
-    updateOrderStatus: updateKitchenOrderStatus,
-    moveToCompleted,
-    getPendingOrders,
-    getPreparingOrders,
-    getReadyOrders,
-    getCompletedOrders,
-    getKitchenStats
-  } = useKitchenOrders();
 
   // Брой нови поръчки (чакащи и поръчани)
   const newOrdersCount = orders.filter(order => 
@@ -165,7 +143,7 @@ function App() {
   };
 
   const handlePaymentComplete = (transaction: Transaction) => {
-    setTransactions(prev => [transaction, ...prev]);
+    setTransactions(prev => [{ ...transaction, operatorName: currentUser?.name || '' }, ...prev]);
   };
 
   const handleUpdateStock = (id: string, newStock: number) => {
@@ -192,47 +170,45 @@ function App() {
     updateDifferenceAction(differenceId, action, reason);
   };
 
-  const handleAddRecipeToKitchen = (recipe: Recipe, quantity: number, tableNumber?: string, notes?: string) => {
-    // Добавяме поръчка в кухнята
-    addKitchenOrder({
-      recipeId: recipe.id,
-      recipeName: recipe.name,
-      quantity,
-      priority: 'normal',
-      tableNumber,
-      notes,
-      estimatedTime: recipe.preparationTime
-    });
-
-    // Намаляваме склада на основните ингредиенти
-    recipe.ingredients.forEach(ingredient => {
-      if (ingredient.type === 'main') {
-        const totalQuantity = ingredient.quantity * quantity;
-        decreaseIngredientStock(ingredient.ingredientId, totalQuantity);
-      }
-      // Подправките не се намаляват от склада
-    });
-
-    console.log(`Добавена поръчка в кухнята: ${recipe.name} x${quantity}`);
+  const handleAddProfile = (profile: Omit<UserProfile, 'id'>) => {
+    setProfiles(prev => [
+      { ...profile, id: Date.now().toString() },
+      ...prev
+    ]);
   };
 
-  const handleAddRecipeToCart = (recipe: Recipe, quantity: number) => {
-    // Създаваме продукт от рецептата за добавяне в количката
-    const recipeProduct = {
-      id: recipe.id,
-      name: recipe.name,
-      price: recipe.price,
-      category: recipe.category,
-      stock: 999 // Безлимитен склад за рецепти
-    };
+  const handleDeleteProfile = (id: string) => {
+    setProfiles(prev => prev.filter(p => p.id !== id));
+  };
 
-    // Добавяме в количката
-    for (let i = 0; i < quantity; i++) {
-      addToCart(recipeProduct);
+  // Филтриране на менюто според роля
+  const getAllowedViews = () => {
+    if (!currentUser) return [];
+    switch (currentUser.role) {
+      case 'Касиер':
+        return ['pos'];
+      case 'Мениджър обект':
+        return ['pos', 'inventory', 'orders', 'revision-history', 'settings', 'dashboard'];
+      case 'Куриер':
+        return ['orders'];
+      case 'Админ':
+        return ['pos', 'dashboard', 'settings', 'inventory', 'orders', 'revision-history', 'analytics', 'automatic-actions'];
+      default:
+        return [];
     }
-
-    console.log(`Добавена рецепта в количката: ${recipe.name} x${quantity}`);
   };
+
+  // Ако няма логнат потребител, показваме логин
+  if (!currentUser) {
+    return <LoginWithPin profiles={profiles} onLogin={setCurrentUser} />;
+  }
+
+  // Ако потребителят няма достъп до текущата страница, пренасочваме към първата достъпна
+  const allowedViews = getAllowedViews();
+  if (!allowedViews.includes(activeView)) {
+    setActiveView(allowedViews[0]);
+    return null;
+  }
 
   const renderContent = () => {
     switch (activeView) {
@@ -249,8 +225,7 @@ function App() {
             onClearCart={handleClearCart}
             onPaymentComplete={handlePaymentComplete}
             onClearStockWarning={clearStockWarning}
-            onAddRecipeToKitchen={handleAddRecipeToKitchen}
-            onAddRecipeToCart={handleAddRecipeToCart}
+            operatorName={currentUser?.name || ''}
           />
         );
       case 'dashboard':
@@ -277,19 +252,6 @@ function App() {
             onUpdateOrderStatus={handleUpdateOrderStatus}
             onDeleteOrder={handleDeleteOrder}
             onUpdateProductStock={(id, newStock) => updateProduct(id, { stock: newStock })}
-          />
-        );
-      case 'kitchen':
-        return (
-          <Kitchen 
-            recipes={recipes}
-            ingredients={ingredients}
-            orders={kitchenOrders}
-            completedOrders={kitchenCompletedOrders}
-            onAddOrder={addKitchenOrder}
-            onUpdateOrderStatus={updateKitchenOrderStatus}
-            onMoveToCompleted={moveToCompleted}
-            onDecreaseIngredientStock={decreaseIngredientStock}
           />
         );
       case 'revision-history':
@@ -340,8 +302,20 @@ function App() {
         onViewChange={setActiveView}
         cartItemsCount={itemCount}
         newOrdersCount={newOrdersCount}
+        onOpenRolesModal={() => setRolesModalOpen(true)}
+        allowedViews={allowedViews}
+        currentUser={currentUser}
+        onLogout={() => setCurrentUser(null)}
       />
-      
+      {rolesModalOpen && (
+        <RolesModal
+          open={rolesModalOpen}
+          onClose={() => setRolesModalOpen(false)}
+          profiles={profiles}
+          onAddProfile={handleAddProfile}
+          onDeleteProfile={handleDeleteProfile}
+        />
+      )}
       <div className="flex flex-1 overflow-hidden flex-col lg:flex-row">
         {renderContent()}
       </div>

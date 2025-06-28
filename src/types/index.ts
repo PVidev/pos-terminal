@@ -26,6 +26,7 @@ export interface Transaction {
   paymentMethod: 'cash' | 'card' | 'digital';
   timestamp: Date;
   cashier?: string;
+  operatorName?: string;
   customerInfo?: {
     name?: string;
     email?: string;
@@ -87,7 +88,8 @@ export interface RevisionDifference {
   action?: 'investigation' | 'order' | 'adjustment' | 'none';
 }
 
-// Нови типове за кухненската система
+// Кухненски типове - временно скрити
+/*
 export interface Ingredient {
   id: string;
   name: string;
@@ -135,6 +137,22 @@ export interface KitchenOrder {
   estimatedTime?: number; // в минути
   actualTime?: number; // в минути
 }
+
+export interface PendingDish {
+  id: string;
+  recipeId: string;
+  recipeName: string;
+  quantity: number;
+  price: number;
+  totalPrice: number;
+  timestamp: Date;
+  tableNumber?: string;
+  notes?: string;
+  isPaid: boolean;
+  paymentMethod?: PaymentMethod;
+  paidAt?: Date;
+}
+*/
 
 export type PaymentMethod = 'cash' | 'card' | 'digital';
 

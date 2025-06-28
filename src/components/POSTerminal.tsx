@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import { ProductGrid } from './ProductGrid';
 import { Cart } from './Cart';
 import { PaymentPanel } from './PaymentPanel';
-import RecipeSelector from './RecipeSelector';
-import { Product, CartItem, Transaction, Recipe } from '../types';
-import { ChefHat } from 'lucide-react';
+import { Product, CartItem, Transaction } from '../types';
 
 interface POSTerminalProps {
   products: Product[];
@@ -17,8 +15,7 @@ interface POSTerminalProps {
   onClearCart: () => void;
   onPaymentComplete: (transaction: Transaction) => void;
   onClearStockWarning: () => void;
-  onAddRecipeToKitchen?: (recipe: Recipe, quantity: number, tableNumber?: string, notes?: string) => void;
-  onAddRecipeToCart?: (recipe: Recipe, quantity: number) => void;
+  operatorName?: string;
 }
 
 export const POSTerminal: React.FC<POSTerminalProps> = ({
@@ -32,17 +29,8 @@ export const POSTerminal: React.FC<POSTerminalProps> = ({
   onClearCart,
   onPaymentComplete,
   onClearStockWarning,
-  onAddRecipeToKitchen,
-  onAddRecipeToCart
+  operatorName
 }) => {
-  const [showRecipeSelector, setShowRecipeSelector] = useState(false);
-
-  const handleAddRecipeToKitchen = (recipe: Recipe, quantity: number, tableNumber?: string, notes?: string) => {
-    if (onAddRecipeToKitchen) {
-      onAddRecipeToKitchen(recipe, quantity, tableNumber, notes);
-    }
-  };
-
   return (
     <div className="flex flex-1 h-full overflow-hidden flex-col lg:flex-row">
       {/* Stock Warning Banner */}
@@ -58,20 +46,14 @@ export const POSTerminal: React.FC<POSTerminalProps> = ({
           </button>
         </div>
       )}
-      
       {/* Products section - scrollable */}
       <div className="flex-1 overflow-y-auto lg:flex-1">
-        {/* Recipe Button */}
-        <div className="p-4 border-b border-gray-200 bg-white">
-          <button
-            onClick={() => setShowRecipeSelector(true)}
-            className="flex items-center space-x-2 px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors shadow-md"
-          >
-            <ChefHat className="w-5 h-5" />
-            <span className="font-medium">Рецепти</span>
-          </button>
-        </div>
-        
+        {/* Оператор */}
+        {operatorName && (
+          <div className="w-full bg-gray-800 text-emerald-400 text-left py-1 px-4 text-sm font-medium border-b border-gray-700 mb-2 rounded-t-xl shadow-sm">
+            <span className="opacity-80">Оператор:</span> <span className="font-semibold">{operatorName}</span>
+          </div>
+        )}
         <ProductGrid 
           products={products} 
           onAddToCart={onAddToCart} 
@@ -94,16 +76,6 @@ export const POSTerminal: React.FC<POSTerminalProps> = ({
           onClearCart={onClearCart}
         />
       </div>
-
-      {/* Recipe Selector Modal */}
-      {showRecipeSelector && (
-        <RecipeSelector
-          onClose={() => setShowRecipeSelector(false)}
-          onAddToKitchen={handleAddRecipeToKitchen}
-          onAddToCart={onAddRecipeToCart}
-          cartItems={cartItems}
-        />
-      )}
     </div>
   );
 };

@@ -262,7 +262,9 @@ npm run build
 ## 📞 Поддръжка
 
 За въпроси и поддръжка:
-- Email: pvidev@ppvidev-design.com
+- Email: support@pos-kitchen.com
+- Телефон: +359 888 123 456
+- Документация: [docs.pos-kitchen.com](https://docs.pos-kitchen.com)
 
 ---
 

@@ -125,11 +125,11 @@ const Kitchen: React.FC<KitchenProps> = ({
 
   const getStatusColor = (status: KitchenOrder['status']) => {
     switch (status) {
-      case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'preparing': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'ready': return 'bg-green-100 text-green-800 border-green-200';
-      case 'cancelled': return 'bg-red-100 text-red-800 border-red-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'pending': return 'bg-yellow-600 text-yellow-100 border-yellow-500';
+      case 'preparing': return 'bg-blue-600 text-blue-100 border-blue-500';
+      case 'ready': return 'bg-green-600 text-green-100 border-green-500';
+      case 'cancelled': return 'bg-red-600 text-red-100 border-red-500';
+      default: return 'bg-gray-600 text-gray-100 border-gray-500';
     }
   };
 
@@ -163,8 +163,8 @@ const Kitchen: React.FC<KitchenProps> = ({
     
     return (
       <div 
-        className={`bg-white rounded-xl shadow-lg border-2 transition-all duration-200 hover:shadow-xl cursor-pointer ${
-          selectedOrder?.id === order.id ? 'border-blue-500 ring-2 ring-blue-200' : 'border-gray-100'
+        className={`bg-gray-800 rounded-xl shadow-lg border-2 transition-all duration-200 hover:shadow-xl cursor-pointer ${
+          selectedOrder?.id === order.id ? 'border-blue-500 ring-2 ring-blue-500/20' : 'border-gray-700'
         }`}
         onClick={() => setSelectedOrder(order)}
       >
@@ -172,8 +172,8 @@ const Kitchen: React.FC<KitchenProps> = ({
           {/* Header */}
           <div className="flex justify-between items-start mb-4">
             <div className="flex-1">
-              <h3 className="text-xl font-bold text-gray-800 mb-1">{order.recipeName}</h3>
-              <div className="flex items-center space-x-4 text-sm text-gray-600">
+              <h3 className="text-xl font-bold text-white mb-1">{order.recipeName}</h3>
+              <div className="flex items-center space-x-4 text-sm text-gray-400">
                 <div className="flex items-center space-x-1">
                   <Users className="w-4 h-4" />
                   <span>{order.quantity} порции</span>
@@ -207,16 +207,16 @@ const Kitchen: React.FC<KitchenProps> = ({
 
           {/* Time indicator */}
           {order.status === 'preparing' && order.startedAt && (
-            <div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+            <div className="mb-4 p-3 bg-blue-900/30 rounded-lg border border-blue-700">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
-                  <Timer className="w-5 h-5 text-blue-600" />
-                  <span className="text-sm font-medium text-blue-800">
+                  <Timer className="w-5 h-5 text-blue-400" />
+                  <span className="text-sm font-medium text-blue-300">
                     В процес: {formatDuration(timeSinceOrder)}
                   </span>
                 </div>
                 {order.estimatedTime && (
-                  <span className="text-xs text-blue-600">
+                  <span className="text-xs text-blue-400">
                     Очаквано: {order.estimatedTime} мин
                   </span>
                 )}
@@ -227,15 +227,15 @@ const Kitchen: React.FC<KitchenProps> = ({
           {/* Ingredients */}
           {recipe && (
             <div className="mb-4">
-              <h4 className="text-sm font-semibold text-gray-700 mb-2 flex items-center space-x-1">
+              <h4 className="text-sm font-semibold text-gray-300 mb-2 flex items-center space-x-1">
                 <ChefHat className="w-4 h-4" />
                 <span>Ингредиенти:</span>
               </h4>
               <div className="grid grid-cols-2 gap-2 text-sm">
                 {recipe.ingredients.slice(0, 6).map((ingredient, index) => (
-                  <div key={index} className="flex justify-between bg-gray-50 px-2 py-1 rounded">
-                    <span className="text-gray-700">{ingredient.ingredientName}</span>
-                    <span className="text-gray-600 font-medium">
+                  <div key={index} className="flex justify-between bg-gray-700 px-2 py-1 rounded">
+                    <span className="text-gray-300">{ingredient.ingredientName}</span>
+                    <span className="text-gray-400 font-medium">
                       {ingredient.quantity} {ingredient.unit}
                     </span>
                   </div>
@@ -251,12 +251,12 @@ const Kitchen: React.FC<KitchenProps> = ({
 
           {/* Notes */}
           {order.notes && (
-            <div className="mb-4 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+            <div className="mb-4 p-3 bg-yellow-900/30 rounded-lg border border-yellow-700">
               <div className="flex items-start space-x-2">
-                <AlertCircle className="w-4 h-4 text-yellow-600 mt-0.5 flex-shrink-0" />
+                <AlertCircle className="w-4 h-4 text-yellow-400 mt-0.5 flex-shrink-0" />
                 <div>
-                  <span className="text-sm font-medium text-yellow-800">Бележка:</span>
-                  <p className="text-sm text-yellow-700 mt-1">{order.notes}</p>
+                  <span className="text-sm font-medium text-yellow-300">Бележка:</span>
+                  <p className="text-sm text-yellow-200 mt-1">{order.notes}</p>
                 </div>
               </div>
             </div>
@@ -309,7 +309,7 @@ const Kitchen: React.FC<KitchenProps> = ({
   const stats = getKitchenStats();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gray-900">
       <div className="p-6">
         {/* Header */}
         <div className="mb-8">
@@ -318,8 +318,8 @@ const Kitchen: React.FC<KitchenProps> = ({
               <ChefHat className="w-8 h-8 text-white" />
             </div>
             <div>
-              <h1 className="text-4xl font-bold text-gray-800">🍳 Кухня</h1>
-              <p className="text-gray-600">Управление на поръчки и рецепти</p>
+              <h1 className="text-4xl font-bold text-white">🍳 Кухня</h1>
+              <p className="text-gray-400">Управление на поръчки и рецепти</p>
             </div>
           </div>
           
@@ -367,13 +367,13 @@ const Kitchen: React.FC<KitchenProps> = ({
           </div>
 
           {/* Tabs */}
-          <div className="flex space-x-1 bg-white p-2 rounded-2xl shadow-lg mb-8">
+          <div className="flex space-x-1 bg-gray-800 p-2 rounded-2xl shadow-lg mb-8 border border-gray-700">
             <button
               onClick={() => setActiveTab('orders')}
               className={`flex-1 py-3 px-6 rounded-xl text-sm font-semibold transition-all duration-200 ${
                 activeTab === 'orders' 
                   ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md' 
-                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
+                  : 'text-gray-400 hover:text-white hover:bg-gray-700'
               }`}
             >
               📋 Поръчки
@@ -383,7 +383,7 @@ const Kitchen: React.FC<KitchenProps> = ({
               className={`flex-1 py-3 px-6 rounded-xl text-sm font-semibold transition-all duration-200 ${
                 activeTab === 'recipes' 
                   ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md' 
-                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
+                  : 'text-gray-400 hover:text-white hover:bg-gray-700'
               }`}
             >
               📖 Рецепти
@@ -393,7 +393,7 @@ const Kitchen: React.FC<KitchenProps> = ({
               className={`flex-1 py-3 px-6 rounded-xl text-sm font-semibold transition-all duration-200 ${
                 activeTab === 'ingredients' 
                   ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md' 
-                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
+                  : 'text-gray-400 hover:text-white hover:bg-gray-700'
               }`}
             >
               🥬 Ингредиенти
@@ -403,7 +403,7 @@ const Kitchen: React.FC<KitchenProps> = ({
               className={`flex-1 py-3 px-6 rounded-xl text-sm font-semibold transition-all duration-200 ${
                 activeTab === 'history' 
                   ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md' 
-                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
+                  : 'text-gray-400 hover:text-white hover:bg-gray-700'
               }`}
             >
               📊 История
@@ -418,7 +418,7 @@ const Kitchen: React.FC<KitchenProps> = ({
               {/* Pending Orders */}
               {getPendingOrders().length > 0 && (
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center space-x-3">
+                  <h2 className="text-2xl font-bold text-white mb-6 flex items-center space-x-3">
                     <div className="w-4 h-4 bg-yellow-500 rounded-full animate-pulse"></div>
                     <span>Чакащи поръчки ({getPendingOrders().length})</span>
                   </h2>
@@ -433,7 +433,7 @@ const Kitchen: React.FC<KitchenProps> = ({
               {/* Preparing Orders */}
               {getPreparingOrders().length > 0 && (
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center space-x-3">
+                  <h2 className="text-2xl font-bold text-white mb-6 flex items-center space-x-3">
                     <div className="w-4 h-4 bg-blue-500 rounded-full animate-pulse"></div>
                     <span>В процес ({getPreparingOrders().length})</span>
                   </h2>
@@ -448,7 +448,7 @@ const Kitchen: React.FC<KitchenProps> = ({
               {/* Ready Orders */}
               {getReadyOrders().length > 0 && (
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center space-x-3">
+                  <h2 className="text-2xl font-bold text-white mb-6 flex items-center space-x-3">
                     <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse"></div>
                     <span>Готови за издаване ({getReadyOrders().length})</span>
                   </h2>
@@ -463,7 +463,7 @@ const Kitchen: React.FC<KitchenProps> = ({
               {getPendingOrders().length === 0 && getPreparingOrders().length === 0 && getReadyOrders().length === 0 && (
                 <div className="text-center py-16">
                   <div className="text-8xl mb-6">🍽️</div>
-                  <h3 className="text-2xl font-bold text-gray-600 mb-4">Няма активни поръчки</h3>
+                  <h3 className="text-2xl font-bold text-gray-400 mb-4">Няма активни поръчки</h3>
                   <p className="text-gray-500 text-lg">Всички поръчки са обработени! 🎉</p>
                 </div>
               )}
@@ -473,14 +473,14 @@ const Kitchen: React.FC<KitchenProps> = ({
           {activeTab === 'recipes' && (
             <div className="grid gap-6">
               {getActiveRecipes().map(recipe => (
-                <div key={recipe.id} className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
+                <div key={recipe.id} className="bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-700">
                   <div className="flex justify-between items-start mb-6">
                     <div className="flex-1">
-                      <h3 className="text-2xl font-bold text-gray-800 mb-2">{recipe.name}</h3>
-                      <p className="text-gray-600 text-lg">{recipe.description}</p>
+                      <h3 className="text-2xl font-bold text-white mb-2">{recipe.name}</h3>
+                      <p className="text-gray-400 text-lg">{recipe.description}</p>
                     </div>
                     <div className="text-right">
-                      <div className="text-3xl font-bold text-blue-600 mb-1">{recipe.price.toFixed(2)} лв.</div>
+                      <div className="text-3xl font-bold text-blue-400 mb-1">{recipe.price.toFixed(2)} лв.</div>
                       <div className="text-sm text-gray-500 flex items-center justify-center space-x-1">
                         <Clock className="w-4 h-4" />
                         <span>{recipe.preparationTime} мин.</span>
@@ -490,20 +490,20 @@ const Kitchen: React.FC<KitchenProps> = ({
                   
                   <div className="grid md:grid-cols-2 gap-8">
                     <div>
-                      <h4 className="text-lg font-semibold text-gray-700 mb-4 flex items-center space-x-2">
+                      <h4 className="text-lg font-semibold text-gray-300 mb-4 flex items-center space-x-2">
                         <ChefHat className="w-5 h-5" />
                         <span>Ингредиенти:</span>
                       </h4>
                       <div className="space-y-2">
                         {recipe.ingredients.map((ingredient, index) => (
-                          <div key={index} className="flex justify-between items-center bg-gray-50 px-4 py-3 rounded-lg">
-                            <span className="font-medium text-gray-800">{ingredient.ingredientName}</span>
+                          <div key={index} className="flex justify-between items-center bg-gray-700 px-4 py-3 rounded-lg">
+                            <span className="font-medium text-gray-300">{ingredient.ingredientName}</span>
                             <div className="flex items-center space-x-2">
-                              <span className="text-gray-600 font-semibold">
+                              <span className="text-gray-400 font-semibold">
                                 {ingredient.quantity} {ingredient.unit}
                               </span>
                               <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                                ingredient.type === 'main' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'
+                                ingredient.type === 'main' ? 'bg-blue-600 text-blue-100' : 'bg-green-600 text-green-100'
                               }`}>
                                 {ingredient.type === 'main' ? 'Основен' : 'Подправка'}
                               </span>
@@ -515,8 +515,8 @@ const Kitchen: React.FC<KitchenProps> = ({
                     
                     {recipe.instructions && (
                       <div>
-                        <h4 className="text-lg font-semibold text-gray-700 mb-4">Инструкции:</h4>
-                        <div className="bg-gray-50 p-6 rounded-lg text-gray-700 whitespace-pre-line leading-relaxed">
+                        <h4 className="text-lg font-semibold text-gray-300 mb-4">Инструкции:</h4>
+                        <div className="bg-gray-700 p-6 rounded-lg text-gray-300 whitespace-pre-line leading-relaxed">
                           {recipe.instructions}
                         </div>
                       </div>
@@ -530,18 +530,18 @@ const Kitchen: React.FC<KitchenProps> = ({
           {activeTab === 'ingredients' && (
             <div className="grid gap-6">
               {ingredients.map(ingredient => (
-                <div key={ingredient.id} className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+                <div key={ingredient.id} className="bg-gray-800 rounded-2xl shadow-lg p-6 border border-gray-700">
                   <div className="flex justify-between items-center">
                     <div className="flex-1">
-                      <h3 className="text-xl font-bold text-gray-800 mb-1">{ingredient.name}</h3>
-                      <p className="text-gray-600">{ingredient.category}</p>
+                      <h3 className="text-xl font-bold text-white mb-1">{ingredient.name}</h3>
+                      <p className="text-gray-400">{ingredient.category}</p>
                     </div>
                     <div className="text-right">
-                      <div className="text-2xl font-bold text-blue-600 mb-2">
+                      <div className="text-2xl font-bold text-blue-400 mb-2">
                         {ingredient.stock} {ingredient.unit}
                       </div>
                       <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                        ingredient.type === 'main' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'
+                        ingredient.type === 'main' ? 'bg-blue-600 text-blue-100' : 'bg-green-600 text-green-100'
                       }`}>
                         {ingredient.type === 'main' ? 'Основен' : 'Подправка'}
                       </span>
@@ -554,13 +554,13 @@ const Kitchen: React.FC<KitchenProps> = ({
 
           {activeTab === 'history' && (
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6">История на издадените поръчки</h2>
+              <h2 className="text-2xl font-bold text-white mb-6">История на издадените поръчки</h2>
               {getCompletedOrders().slice(0, 20).map(order => (
-                <div key={order.id} className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+                <div key={order.id} className="bg-gray-800 rounded-2xl shadow-lg p-6 border border-gray-700">
                   <div className="flex justify-between items-center">
                     <div className="flex-1">
-                      <h3 className="text-xl font-bold text-gray-800 mb-2">{order.recipeName}</h3>
-                      <div className="flex items-center space-x-4 text-sm text-gray-600">
+                      <h3 className="text-xl font-bold text-white mb-2">{order.recipeName}</h3>
+                      <div className="flex items-center space-x-4 text-sm text-gray-400">
                         <div className="flex items-center space-x-1">
                           <Clock className="w-4 h-4" />
                           <span>{order.completedAt && formatTime(order.completedAt)}</span>
@@ -578,7 +578,7 @@ const Kitchen: React.FC<KitchenProps> = ({
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-lg font-semibold text-gray-700 mb-1">
+                      <div className="text-lg font-semibold text-gray-300 mb-1">
                         {order.actualTime ? `${order.actualTime} мин.` : 'Н/А'}
                       </div>
                       <div className="text-sm text-gray-500">
@@ -592,7 +592,7 @@ const Kitchen: React.FC<KitchenProps> = ({
               {getCompletedOrders().length === 0 && (
                 <div className="text-center py-16">
                   <div className="text-8xl mb-6">📋</div>
-                  <h3 className="text-2xl font-bold text-gray-600 mb-4">Няма издадени поръчки</h3>
+                  <h3 className="text-2xl font-bold text-gray-400 mb-4">Няма издадени поръчки</h3>
                   <p className="text-gray-500 text-lg">Историята ще се появи тук след издаване на първата поръчка</p>
                 </div>
               )}
